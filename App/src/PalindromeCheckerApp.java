@@ -1,6 +1,9 @@
-// MAIN CLASS - UseCase4PalindromeCheckerApp
-// Use Case 4: Character Array Based Palindrome Check
-// This program converts a string into a character array and checks palindrome using two-pointer technique.
+// MAIN CLASS - UseCase7PalindromeCheckerApp
+// Use Case 7: Deque-Based Optimized Palindrome Checker
+// This program uses Deque to compare front and rear characters.
+
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
 
@@ -9,30 +12,31 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         // Original string
-        String input = "radar";
+        String input = "racecar";
 
-        // Convert string to character array
-        char[] characters = input.toCharArray();
+        // Create Deque to store characters
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Initialize two pointers
-        int start = 0;
-        int end = characters.length - 1;
+        // Insert characters into deque
+        for (int i = 0; i < input.length(); i++) {
+            deque.addLast(input.charAt(i));
+        }
 
         // Variable to store palindrome status
         boolean isPalindrome = true;
 
-        // Two-pointer comparison
-        while (start < end) {
+        // Compare front and rear until deque size is greater than 1
+        while (deque.size() > 1) {
 
-            // Compare characters at start and end
-            if (characters[start] != characters[end]) {
+            // Remove first and last characters
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            // Compare characters
+            if (front != rear) {
                 isPalindrome = false;
                 break;
             }
-
-            // Move pointers
-            start++;
-            end--;
         }
 
         // Display input
