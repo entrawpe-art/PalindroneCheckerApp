@@ -26,13 +26,13 @@
  *
  * Data Structures Used: Queue, Stack
  *
- * @author laksh
+ * @author suhas
  * @version 6.0
  */
 
 import java.util.*;
 
-public class UseCase6PalindromeCheckerApp {
+public class PalindromeCheckerApp {
 
     /**
      * Application entry point for UC6.
