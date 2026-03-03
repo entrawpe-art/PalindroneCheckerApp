@@ -1,50 +1,87 @@
-// MAIN CLASS - UseCase4PalindromeCheckerApp
-// Use Case 4: Character Array Based Palindrome Check
-// This program converts a string into a character array and checks palindrome using two-pointer technique.
+/**
+ *
+ * MAIN CLASS - UseCase6PalindromeCheckerApp
+ *
+ * Use Case 6: Queue + Stack Based Palindrome Check
+ *
+ * Description:
+ * This class demonstrates palindrome validation
+ * using both Queue (FIFO) and Stack (LIFO) data structures.
+ *
+ * The goal is to show how First In First Out (Queue)
+ * and Last In First Out (Stack) behaviors can be compared
+ * to validate palindrome strings.
+ *
+ * Flow:
+ * 1. Enqueue characters into Queue
+ * 2. Push characters into Stack
+ * 3. Compare Dequeue vs Pop outputs
+ * 4. Determine whether input is a palindrome
+ *
+ * Key Concepts:
+ * - Queue: Follows FIFO (First In First Out)
+ * - Stack: Follows LIFO (Last In First Out)
+ * - Logical Comparison: Compare elements popped from stack
+ *   with elements dequeued from queue to validate palindrome
+ *
+ * Data Structures Used: Queue, Stack
+ *
+ * @author laksh
+ * @version 6.0
+ */
 
-public class PalindromeCheckerApp {
+import java.util.*;
 
-    // Application Entry Point
-    // JVM starts execution from here
+public class UseCase6PalindromeCheckerApp {
+
+    /**
+     * Application entry point for UC6.
+     *
+     * @param args Command-Line arguments
+     */
     public static void main(String[] args) {
 
-        // Original string
-        String input = "radar";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=====================================");
+        System.out.println("       LINDROME CHECKER APP - UC6    ");
+        System.out.println("=====================================");
+        System.out.print("Enter a string to check palindrome: ");
+        String input = scanner.nextLine();
 
-        // Convert string to character array
-        char[] characters = input.toCharArray();
+        String normalized = input.toLowerCase().replaceAll("\\s+", ""); // Ignore case and spaces
 
-        // Initialize two pointers
-        int start = 0;
-        int end = characters.length - 1;
+        boolean isPalindrome = isPalindromeUsingQueueAndStack(normalized);
 
-        // Variable to store palindrome status
-        boolean isPalindrome = true;
+        System.out.println("-------------------------------------");
+        System.out.println("Input Text  : " + input);
+        System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("-------------------------------------");
 
-        // Two-pointer comparison
-        while (start < end) {
+        scanner.close();
+    }
 
-            // Compare characters at start and end
-            if (characters[start] != characters[end]) {
-                isPalindrome = false;
-                break;
+    /**
+     * Method: isPalindromeUsingQueueAndStack
+     * Description: Checks palindrome using both Queue and Stack
+     */
+    private static boolean isPalindromeUsingQueueAndStack(String input) {
+
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
+
+        // Enqueue and Push each character
+        for (char c : input.toCharArray()) {
+            queue.add(c);  // FIFO
+            stack.push(c); // LIFO
+        }
+
+        // Compare dequeue vs pop
+        while (!queue.isEmpty() && !stack.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
+                return false;
             }
-
-            // Move pointers
-            start++;
-            end--;
         }
 
-        // Display input
-        System.out.println("Input : " + input);
-
-        // Display result
-        if (isPalindrome) {
-            System.out.println("Result: It is a Palindrome");
-        } else {
-            System.out.println("Result: It is NOT a Palindrome");
-        }
-
-        // Program ends
+        return true;
     }
 }
